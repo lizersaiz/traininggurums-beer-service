@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import guru.springframework.trainingmsscbeerservice.domain.Beer;
 import guru.springframework.trainingmsscbeerservice.repository.BeerRepository;
 
+// CommandLineRunner contains the run method which allows to execute code to Bootstrap the application
+// multiple CommandLineRunner classes can be run on the same app
 public class BeerLoader implements CommandLineRunner {
 
 	private final BeerRepository beerRepository;	
