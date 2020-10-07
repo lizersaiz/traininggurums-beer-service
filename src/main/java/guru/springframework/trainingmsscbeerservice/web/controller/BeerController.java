@@ -2,6 +2,7 @@ package guru.springframework.trainingmsscbeerservice.web.controller;
 
 import java.util.UUID;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

@@ -13,10 +13,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +29,10 @@ import guru.springframework.trainingmsscbeerservice.repository.BeerRepository;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerDto;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerStyleEnum;
 
+@ExtendWith(RestDocumentationExtension.class)
+@AutoConfigureRestDocs
+//TODO actually needed? (added into sfgrestdocsexample project)
+//@ComponentScan(basePackages = "guru.springframework.trainingmsscbeerservice.web.mappers")
 @WebMvcTest(BeerController.class)
 class BeerControllerTest {
 
