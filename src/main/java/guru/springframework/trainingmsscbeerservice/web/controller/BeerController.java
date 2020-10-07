@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,14 +27,14 @@ public class BeerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity createNewBeer(@RequestBody BeerDto beerDto) {
+	public ResponseEntity createNewBeer(@RequestBody @Validated BeerDto beerDto) {
 		
 		// TODO impl
 		return new ResponseEntity(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{beerId}")
-	public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+	public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId, @Validated @RequestBody BeerDto beerDto) {
 		
 		// TODO impl
 		return new ResponseEntity(HttpStatus.NO_CONTENT);
