@@ -9,6 +9,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,11 +57,18 @@ class BeerControllerTest {
 		given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
 		
 		//need to specify path parameters, not just append in the url request
-		mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
+			//param just for testing query params, controller will just ignore it as it is not asking for it
+			.param("iscold", "yes")
+			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andDo(document("v1/beer", pathParameters(
-				parameterWithName("beerId").description("UUID of desired beer to get.")
-			)));
+			.andDo(document("v1/beer", 
+				pathParameters(
+						parameterWithName("beerId").description("UUID of desired beer to get.")
+				),
+				requestParameters(
+						parameterWithName("iscold").description("Is Beer Cold Query param.")
+				)));
 	}
 
 	@Test
