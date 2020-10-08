@@ -11,6 +11,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,6 +70,18 @@ class BeerControllerTest {
 				),
 				requestParameters(
 						parameterWithName("iscold").description("Is Beer Cold Query param.")
+				),
+				//If payload fields are documented, the test will throw an error if there is one missing
+				responseFields(
+						fieldWithPath("id").description("Id of beer"),
+						fieldWithPath("version").description("Version number"),
+						fieldWithPath("createdDate").description("Date Created"),
+						fieldWithPath("lastModifiedDate").description("Date Updated"),
+						fieldWithPath("beerName").description("Beer Name"),
+						fieldWithPath("beerStyle").description("Beer Style"),
+						fieldWithPath("upc").description("UPC of Beer"),
+						fieldWithPath("price").description("Price"),
+						fieldWithPath("quantityOnHand").description("Quantity on Hand")	
 				)));
 	}
 
