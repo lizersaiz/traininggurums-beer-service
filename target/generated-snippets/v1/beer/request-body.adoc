@@ -1,4 +1,4 @@
 [source,options="nowrap"]
 ----
-
+{"id":null,"version":null,"createdDate":null,"lastModifiedDate":null,"beerName":"beer name","beerStyle":"ALE","upc":123456789,"price":12.95,"quantityOnHand":null}
 ----
