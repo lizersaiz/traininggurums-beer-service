@@ -43,7 +43,7 @@ import guru.springframework.trainingmsscbeerservice.web.model.BeerDto;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerStyleEnum;
 
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "dev.springframework.guru", uriPort = 80)
+@AutoConfigureRestDocs(uriScheme = "https", /*uriHost = "dev.springframework.guru",*/ uriPort = 80)
 //TODO actually needed? (added into sfgrestdocsexample project)
 //@ComponentScan(basePackages = "guru.springframework.trainingmsscbeerservice.web.mappers")
 @WebMvcTest(BeerController.class)
@@ -69,7 +69,8 @@ class BeerControllerTest {
 			.param("iscold", "yes")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andDo(document("v1/beer", 
+			//Each endpoint has to be on a different path. Otherwise, they will be overriding each other
+			.andDo(document("v1/beer-get", 
 				pathParameters(
 						parameterWithName("beerId").description("UUID of desired beer to get.")
 				),
@@ -103,7 +104,7 @@ class BeerControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(beerDtoJson))
 				.andExpect(status().isCreated())
-				.andDo(document("v1/beer",
+				.andDo(document("v1/beer-new",
 					requestFields(
 						//use ignored to prevent test to fail when missing property
 						//to use constraint documentation, a package 

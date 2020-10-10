@@ -1,0 +1,11 @@
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\web\model\BeerDto.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\web\model\BeerStyleEnum.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\web\mapper\DateMapper.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\web\model\BeerPagedList.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\web\mapper\BeerMapper.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\web\controller\BeerController.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\domain\Beer.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\bootstrap\BeerLoader.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\TrainingMsscBeerServiceApplication.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\repository\BeerRepository.java
+C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\src\main\java\guru\springframework\trainingmsscbeerservice\web\controller\MvcExceptionHandler.java
