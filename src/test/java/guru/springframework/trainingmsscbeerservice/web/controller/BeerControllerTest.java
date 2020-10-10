@@ -43,7 +43,7 @@ import guru.springframework.trainingmsscbeerservice.web.model.BeerDto;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerStyleEnum;
 
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "dev.springframework.guru", uriPort = 80)
 //TODO actually needed? (added into sfgrestdocsexample project)
 //@ComponentScan(basePackages = "guru.springframework.trainingmsscbeerservice.web.mappers")
 @WebMvcTest(BeerController.class)
