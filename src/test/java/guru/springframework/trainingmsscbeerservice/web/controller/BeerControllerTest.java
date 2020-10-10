@@ -14,6 +14,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.snippet.Attributes.key;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,7 +30,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.constraints.ConstraintDescriptions;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -93,6 +97,8 @@ class BeerControllerTest {
 		BeerDto beerDto = getValidBeerDto();
 		String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 		
+		ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
+		
 		mockMvc.perform(post("/api/v1/beer/")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(beerDtoJson))
@@ -100,15 +106,18 @@ class BeerControllerTest {
 				.andDo(document("v1/beer",
 					requestFields(
 						//use ignored to prevent test to fail when missing property
-						fieldWithPath("id").ignored(),
-						fieldWithPath("version").ignored(),
-						fieldWithPath("createdDate").ignored(),
-						fieldWithPath("lastModifiedDate").ignored(),
-						fieldWithPath("beerName").description("Beer Name"),
-						fieldWithPath("beerStyle").description("Beer Style"),
-						fieldWithPath("upc").description("UPC of Beer").attributes(),
-						fieldWithPath("price").description("Price"),
-						fieldWithPath("quantityOnHand").ignored()
+						//to use constraint documentation, a package 
+						//tree must be created (test.resources.org.springframework.restdocs.templates)
+						//it must contain a "request-fields.snippet" template
+						fields.withPath("id").ignored(),
+						fields.withPath("version").ignored(),
+						fields.withPath("createdDate").ignored(),
+						fields.withPath("lastModifiedDate").ignored(),
+						fields.withPath("beerName").description("Beer Name"),
+						fields.withPath("beerStyle").description("Beer Style"),
+						fields.withPath("upc").description("UPC of Beer").attributes(),
+						fields.withPath("price").description("Price"),
+						fields.withPath("quantityOnHand").ignored()
 					)));
 	}
 
@@ -132,6 +141,25 @@ class BeerControllerTest {
 				.upc(123456789L)
 				.price(new BigDecimal("12.95"))
 				.build();
+	}
+	
+	//custom class for constraint documentation. It will
+	//1 Contain a ConstraintDescription object which will give access to a class constraint description
+	//2 Constructor will accept any class and it will instantiate a Constraint descrptions object with that class
+	//3 withPath method will return an enhanced "fieldWithPath" method, adding the constraints from a given path (the property)
+	private static class ConstrainedFields {
+		
+		private final ConstraintDescriptions constraintDescriptions;
+		
+		ConstrainedFields(Class<?> input) {
+			this.constraintDescriptions = new ConstraintDescriptions(input);
+		}
+		
+		private FieldDescriptor withPath(String path) {
+			return fieldWithPath(path).attributes(key("constraints")
+					.value(StringUtils.collectionToDelimitedString(
+							this.constraintDescriptions.descriptionsForProperty(path), ". ")));
+		}
 	}
 
 }
