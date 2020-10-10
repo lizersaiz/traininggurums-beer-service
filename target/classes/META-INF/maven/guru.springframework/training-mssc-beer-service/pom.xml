@@ -185,6 +185,8 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- We are telling this plugin to copy the generated html file from the .adoc template
+            		into the target/static folder so that content will be served on deploy -->
             <plugin> 
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
