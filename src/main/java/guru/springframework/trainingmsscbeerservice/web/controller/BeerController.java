@@ -1,7 +1,9 @@
 package guru.springframework.trainingmsscbeerservice.web.controller;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import guru.springframework.trainingmsscbeerservice.bootstrap.BeerLoader;
+import guru.springframework.trainingmsscbeerservice.domain.Beer;
 import guru.springframework.trainingmsscbeerservice.service.BeerService;
+import guru.springframework.trainingmsscbeerservice.web.mapper.BeerMapper;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerDto;
+import guru.springframework.trainingmsscbeerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

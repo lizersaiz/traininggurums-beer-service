@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 148
+Content-Length: 170
 
-{"id":null,"version":null,"createdDate":null,"lastModifiedDate":null,"beerName":null,"beerStyle":null,"upc":null,"price":null,"quantityOnHand":null}
+{"id":null,"version":null,"createdDate":null,"lastModifiedDate":null,"beerName":"beer name","beerStyle":"ALE","upc":"0631234200036","price":"12.95","quantityOnHand":null}
 ----

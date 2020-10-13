@@ -18,19 +18,19 @@
 |Date Updated
 
 |`+beerName+`
-|`+Null+`
+|`+String+`
 |Beer Name
 
 |`+beerStyle+`
-|`+Null+`
+|`+String+`
 |Beer Style
 
 |`+upc+`
-|`+Null+`
+|`+String+`
 |UPC of Beer
 
 |`+price+`
-|`+Null+`
+|`+String+`
 |Price
 
 |`+quantityOnHand+`

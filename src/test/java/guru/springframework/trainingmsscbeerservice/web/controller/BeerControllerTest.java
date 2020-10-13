@@ -37,8 +37,11 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import guru.springframework.trainingmsscbeerservice.bootstrap.BeerLoader;
 import guru.springframework.trainingmsscbeerservice.domain.Beer;
 import guru.springframework.trainingmsscbeerservice.repository.BeerRepository;
+import guru.springframework.trainingmsscbeerservice.service.BeerService;
+import guru.springframework.trainingmsscbeerservice.web.mapper.BeerMapper;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerDto;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerStyleEnum;
 
@@ -58,10 +61,13 @@ class BeerControllerTest {
 	@MockBean
 	BeerRepository beerRepository;
 	
+	@MockBean
+	BeerService beerService;
+	
 	@Test
 	void getBeerById() throws Exception {
 		
-		given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
+		given(beerService.getById(any())).willReturn(getValidBeerDto());
 		
 		//need to specify path parameters, not just append in the url request
 		mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
@@ -94,7 +100,8 @@ class BeerControllerTest {
 	@Test
 	void createNewBeer() throws Exception {
 
-		//given
+		given(beerService.saveNewBeer(any())).willReturn(getValidBeerDto());
+		
 		BeerDto beerDto = getValidBeerDto();
 		String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 		
@@ -125,7 +132,8 @@ class BeerControllerTest {
 	@Test
 	void updateBeerById() throws Exception {
 
-		//given
+		given(beerService.updateBeerById(any(), any())).willReturn(getValidBeerDto());
+
 		BeerDto beerDto = getValidBeerDto();
 		String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 		
@@ -139,7 +147,7 @@ class BeerControllerTest {
 		
 		return BeerDto.builder().beerName("beer name")
 				.beerStyle(BeerStyleEnum.ALE)
-				.upc(123456789L)
+				.upc(BeerLoader.BEER_1_UPC)
 				.price(new BigDecimal("12.95"))
 				.build();
 	}

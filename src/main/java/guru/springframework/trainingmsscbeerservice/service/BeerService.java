@@ -2,8 +2,6 @@ package guru.springframework.trainingmsscbeerservice.service;
 
 import java.util.UUID;
 
-import org.springframework.http.ResponseEntity;
-
 import guru.springframework.trainingmsscbeerservice.web.model.BeerDto;
 
 public interface BeerService {

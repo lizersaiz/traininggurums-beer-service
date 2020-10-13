@@ -11,12 +11,12 @@
 	|Must not be null
 	
 	|upc
-	|Number
+	|String
 	|UPC of Beer
-	|Must be positive. Must not be null
+	|Must not be null
 	
 	|price
-	|Number
+	|String
 	|Price
 	|Must be positive. Must not be null
 	

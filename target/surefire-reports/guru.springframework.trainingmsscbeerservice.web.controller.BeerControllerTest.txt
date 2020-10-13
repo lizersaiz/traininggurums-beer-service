@@ -1,4 +1,19 @@
 -------------------------------------------------------------------------------
 Test set: guru.springframework.trainingmsscbeerservice.web.controller.BeerControllerTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.024 s - in guru.springframework.trainingmsscbeerservice.web.controller.BeerControllerTest
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 2.134 s <<< FAILURE! - in guru.springframework.trainingmsscbeerservice.web.controller.BeerControllerTest
+updateBeerById  Time elapsed: 0.025 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'beerController' defined in file [C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\target\classes\guru\springframework\trainingmsscbeerservice\web\controller\BeerController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'guru.springframework.trainingmsscbeerservice.service.BeerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'guru.springframework.trainingmsscbeerservice.service.BeerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+
+getBeerById  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'beerController' defined in file [C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\target\classes\guru\springframework\trainingmsscbeerservice\web\controller\BeerController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'guru.springframework.trainingmsscbeerservice.service.BeerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'guru.springframework.trainingmsscbeerservice.service.BeerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+
+createNewBeer  Time elapsed: 0.005 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'beerController' defined in file [C:\git\training\Spring Microservices - John Thompson\training-mssc-beer-service\target\classes\guru\springframework\trainingmsscbeerservice\web\controller\BeerController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'guru.springframework.trainingmsscbeerservice.service.BeerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'guru.springframework.trainingmsscbeerservice.service.BeerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+
