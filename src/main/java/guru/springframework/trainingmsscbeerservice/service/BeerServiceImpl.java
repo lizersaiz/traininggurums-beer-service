@@ -1,14 +1,20 @@
 package guru.springframework.trainingmsscbeerservice.service;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import guru.springframework.trainingmsscbeerservice.domain.Beer;
 import guru.springframework.trainingmsscbeerservice.repository.BeerRepository;
 import guru.springframework.trainingmsscbeerservice.web.controller.NotFoundException;
 import guru.springframework.trainingmsscbeerservice.web.mapper.BeerMapper;
 import guru.springframework.trainingmsscbeerservice.web.model.BeerDto;
+import guru.springframework.trainingmsscbeerservice.web.model.BeerPagedList;
+import guru.springframework.trainingmsscbeerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,6 +23,43 @@ public class BeerServiceImpl implements BeerService {
 
 	private final BeerRepository beerRepository;
 	private final BeerMapper beerMapper;
+	
+	@Override
+	public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest) {
+
+		// REPOSITORY WILL RETURN A SINGLE PAGE WITH ALL DATA ON IT
+		Page<Beer> beerPage;
+		// THAT PAGE WILL BE TRANSFORMED ONTO A PAGEDLIST BASED ON PAGEREQUEST
+		BeerPagedList beerPagedList;
+		
+		if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
+			
+			beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
+		} else if (!StringUtils.isEmpty(beerName) && StringUtils.isEmpty(beerStyle)) {
+			
+			beerPage = beerRepository.findAllByBeerName(beerName, pageRequest);
+		} else if (StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
+			
+			beerPage = beerRepository.findAllByBeerStyle(beerStyle, pageRequest);
+		} else {
+			
+			beerPage = beerRepository.findAll(pageRequest);
+		}
+		
+		// CONVERSION PAGE - PAGEDLIST
+		beerPagedList = new BeerPagedList(beerPage
+				.getContent()
+				.stream()
+				// HERE DECORATOR WILL COME INTO PLACE
+				.map(beerMapper::beerToBeerDto)
+				.collect(Collectors.toList()),
+				PageRequest
+					.of(beerPage.getPageable().getPageNumber(),
+							beerPage.getPageable().getPageSize()),
+				beerPage.getTotalElements());
+		
+		return beerPagedList;
+	}
 	
 	@Override
 	public BeerDto getById(UUID beerId) {
@@ -43,5 +86,4 @@ public class BeerServiceImpl implements BeerService {
 		
 		return beerMapper.beerToBeerDto(beerRepository.save(beerToUpdate));
 	}
-
 }
