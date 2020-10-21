@@ -10,9 +10,9 @@ import guru.springframework.trainingmsscbeerservice.web.model.BeerStyleEnum;
 
 public interface BeerService {
 
-	BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+	BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean isQuantityOnHand);
 	
-	BeerDto getById(UUID beerId);
+	BeerDto getById(UUID beerId, Boolean isQuantityOnHand);
 
 	BeerDto saveNewBeer(BeerDto beerDto);
 

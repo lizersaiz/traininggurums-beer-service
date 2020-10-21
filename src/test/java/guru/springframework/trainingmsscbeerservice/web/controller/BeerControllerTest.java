@@ -67,7 +67,7 @@ class BeerControllerTest {
 	@Test
 	void getBeerById() throws Exception {
 		
-		given(beerService.getById(any())).willReturn(getValidBeerDto());
+		given(beerService.getById(any(), false)).willReturn(getValidBeerDto());
 		
 		//need to specify path parameters, not just append in the url request
 		mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())

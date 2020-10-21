@@ -25,7 +25,7 @@ public class BeerServiceImpl implements BeerService {
 	private final BeerMapper beerMapper;
 	
 	@Override
-	public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest) {
+	public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean isQuantityOnHand) {
 
 		// REPOSITORY WILL RETURN A SINGLE PAGE WITH ALL DATA ON IT
 		Page<Beer> beerPage;
@@ -46,8 +46,21 @@ public class BeerServiceImpl implements BeerService {
 			beerPage = beerRepository.findAll(pageRequest);
 		}
 		
-		// CONVERSION PAGE - PAGEDLIST
-		beerPagedList = new BeerPagedList(beerPage
+		if (isQuantityOnHand) {
+			
+			beerPagedList = new BeerPagedList(beerPage
+				.getContent()
+				.stream()
+				// CALL NEW MAPPER METHOD
+				.map(beerMapper::beerToBeerDtoWithInventory)
+				.collect(Collectors.toList()),
+				PageRequest
+					.of(beerPage.getPageable().getPageNumber(),
+							beerPage.getPageable().getPageSize()),
+				beerPage.getTotalElements());
+		} else {
+			
+			beerPagedList = new BeerPagedList(beerPage
 				.getContent()
 				.stream()
 				// HERE DECORATOR WILL COME INTO PLACE
@@ -57,14 +70,24 @@ public class BeerServiceImpl implements BeerService {
 					.of(beerPage.getPageable().getPageNumber(),
 							beerPage.getPageable().getPageSize()),
 				beerPage.getTotalElements());
+		}
+		
+		// CONVERSION PAGE - PAGEDLIST
+	
 		
 		return beerPagedList;
 	}
 	
 	@Override
-	public BeerDto getById(UUID beerId) {
+	public BeerDto getById(UUID beerId, Boolean isQuantityOnHand) {
+
+
+		if (isQuantityOnHand) {
+
+			return beerMapper.beerToBeerDtoWithInventory(beerRepository.findById(beerId).orElseThrow(NotFoundException::new));
+		}
 		
-		return beerMapper.beerToBeerDto(beerRepository.findById(beerId).orElseThrow(NotFoundException::new));
+		return beerMapper.beerToBeerDto(beerRepository.findById(beerId).orElseThrow(NotFoundException::new));		
 	}
 
 	@Override
