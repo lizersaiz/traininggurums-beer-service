@@ -3,6 +3,7 @@ package guru.springframework.trainingmsscbeerservice.service;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,14 @@ public class BeerServiceImpl implements BeerService {
 	private final BeerRepository beerRepository;
 	private final BeerMapper beerMapper;
 	
+	//			corresponds to cache config alias on ehcache.xml
+	//								will only work on a method parameter condition in this case
+	@Cacheable(cacheNames = "beerListCache", condition = "#isQuantityOnHand == false")
 	@Override
 	public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean isQuantityOnHand) {
 
+		System.out.println("I was called, not again until cache has expired");
+		
 		// REPOSITORY WILL RETURN A SINGLE PAGE WITH ALL DATA ON IT
 		Page<Beer> beerPage;
 		// THAT PAGE WILL BE TRANSFORMED ONTO A PAGEDLIST BASED ON PAGEREQUEST
@@ -78,6 +84,9 @@ public class BeerServiceImpl implements BeerService {
 		return beerPagedList;
 	}
 	
+	//key parameter tells to cache the different results given by the method according to that parameter
+	//by default, keys will be automatically generated for the requested keys on parameters
+	@Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#isQuantityOnHand == false")
 	@Override
 	public BeerDto getById(UUID beerId, Boolean isQuantityOnHand) {
 

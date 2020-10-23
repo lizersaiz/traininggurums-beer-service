@@ -12,6 +12,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class BeerPagedList extends PageImpl<BeerDto> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -152925838513308302L;
+
 	@JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
 	public BeerPagedList(@JsonProperty("content") List<BeerDto> content,
 							@JsonProperty("number") int number,

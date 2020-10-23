@@ -1,0 +1,23 @@
+<config
+		xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
+		xmlns='http://www.ehcache.org/v3'>
+	<service>
+		<jsr107:defaults enable-management="true" enable-statistics="true"/>
+	</service>	
+	
+	<!-- this cacheable references are to be used on a method marked with @Cacheable annotation -->
+	<cache alias="beerCache" uses-template="config-cache"/>
+	<cache alias="beerListCache" uses-template="config-cache"/>
+	
+	<!-- the cache template, it will cache the result of the invoked method for 5 minutes, and up to 1MB of capacity -->
+	<cache-template name="config-cache">
+		<expiry>
+			<ttl unit="minutes">5</ttl>
+		</expiry>
+		<resources>
+			<heap>1</heap>
+			<offheap unit="MB">1</offheap>
+		</resources>
+	</cache-template>
+	
+</config>
