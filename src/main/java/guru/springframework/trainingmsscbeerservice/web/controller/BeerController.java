@@ -32,7 +32,7 @@ public class BeerController {
 	private final BeerService beerService;
 	
 	// DELEGATE EXTERNAL REQUEST TO LISTBEERS TO TRANSFORM RESPONSE BY DECORATING IT LATER ON
-	@GetMapping(/* produces = {"application/json"} */)
+	@GetMapping(produces = {"application/json"})
 	public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
 													@RequestParam(value = "pageSize", required = false) Integer pageSize,
 													@RequestParam(value = "beerName", required = false) String beerName,
