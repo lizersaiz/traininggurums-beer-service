@@ -64,7 +64,7 @@ public class BeerController {
 	public ResponseEntity<BeerDto> getBeerByUpc(@PathVariable("upc") String upc,
 												@RequestParam(value = "isQuantityOnHand", required = false) Boolean isQuantityOnHand) {
 		
-		System.out.println("cache hitting up");
+		//System.out.println("cache hitting up");
 		
 		if (isQuantityOnHand == null) {
 			isQuantityOnHand = false;
