@@ -1,4 +1,4 @@
-package guru.springframework.trainingmsscbeerservice.service;
+package guru.springframework.trainingmsscbeerservice.service.brewing;
 
 import java.util.List;
 
