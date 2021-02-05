@@ -3,6 +3,7 @@ package guru.springframework.trainingmsscbeerservice.service.brewing;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import guru.springframework.trainingmsscbeerservice.config.JmsConfig;
 import guru.springframework.trainingmsscbeerservice.domain.Beer;
@@ -21,6 +22,7 @@ public class BrewBeerListener {
 	private final BeerRepository beerRepository;
 	private final JmsTemplate jmsTemplate;
 	
+	@Transactional
 	@JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE)
 	public void listen(BrewBeerEvent event) {
 		
